@@ -1,4 +1,4 @@
-FROM mongo:latest
+FROM mongo:2
 MAINTAINER zanjs <root@zanjs.com>
 
 ADD init.sh /init.sh

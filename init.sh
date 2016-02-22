@@ -1,13 +1,13 @@
 #!/bin/bash
-if test -z "$MONGO_PASSWD"; then
-    echo "MONGO_PASSWD not defined"
+if test -z "$PASSWD"; then
+    echo "PASSWD not defined"
     exit 1
 fi
 
 (
 echo "setup mongo auth ..."
-auth="-u root -p $MONGO_PASSWD"
-js="if (!db.getUser('root')) { db.createUser({ user: 'root', pwd: '$MONGO_PASSWD', roles: [ {role:'root', db:'admin'} ]}) }"
+auth="-u root -p $PASSWD"
+js="if (!db.getUser('root')) { db.createUser({ user: 'root', pwd: '$PASSWD', roles: [ {role:'root', db:'admin'} ]}) }"
 until mongo admin --eval "$js" || mongo admin $auth --eval "$js"; do sleep 5; done
 echo "completed auth setup, killing naked mongo"
 killall mongod
